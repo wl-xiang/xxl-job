@@ -33,7 +33,7 @@ services:
     # 4、本地Build设置，如果期望使用推动DockerHub的镜像，可以注释当前启用的image、build配置，并启用如下设置版本的image配置；
     # image: xuxueli/xxl-job-admin:{version}
     # image: xuxueli/xxl-job-admin:local
-    image: xuxueli/xxl-job-admin:${ADMIN_VERSION:-3.5.0}
+    image: xuxueli/xxl-job-admin:${XXL_JOB_ADMIN_VERSION:-3.5.0}
     build:
       context: ../xxl-job-admin
       dockerfile: Dockerfile
