@@ -31,8 +31,9 @@ services:
 
   xxl-job-admin:
     # 4、本地Build设置，如果期望使用推动DockerHub的镜像，可以注释当前启用的image、build配置，并启用如下设置版本的image配置；
-    #image: xuxueli/xxl-job-admin:{version}
-    image: xuxueli/xxl-job-admin:local
+    # image: xuxueli/xxl-job-admin:{version}
+    # image: xuxueli/xxl-job-admin:local
+    image: xuxueli/xxl-job-admin:${ADMIN_VERSION:-3.5.0}
     build:
       context: ../xxl-job-admin
       dockerfile: Dockerfile
@@ -53,22 +54,22 @@ services:
     networks:
       - xxl-job-network
 
-  xxl-job-executor-sample-springboot:
-    image: xuxueli/xxl-job-executor-sample-springboot:local
-    build:
-      context: ../xxl-job-executor-samples/xxl-job-executor-sample-springboot
-      dockerfile: Dockerfile
-    container_name: xxl-job-executor-sample-springboot
-    environment:
-      PARAMS: >-
-        --xxl.job.admin.addresses=http://xxl-job-admin:${XXL_JOB_ADMIN_PORT}${XXL_JOB_ADMIN_CONTEXT_PATH:-/}
-    ports:
-      - "9999:9999"
-    depends_on:
-      xxl-job-admin:
-        condition: service_started
-    networks:
-      - xxl-job-network
+  # xxl-job-executor-sample-springboot:
+  #   image: xuxueli/xxl-job-executor-sample-springboot:local
+  #   build:
+  #     context: ../xxl-job-executor-samples/xxl-job-executor-sample-springboot
+  #     dockerfile: Dockerfile
+  #   container_name: xxl-job-executor-sample-springboot
+  #   environment:
+  #     PARAMS: >-
+  #       --xxl.job.admin.addresses=http://xxl-job-admin:${XXL_JOB_ADMIN_PORT}${XXL_JOB_ADMIN_CONTEXT_PATH:-/}
+  #   ports:
+  #     - "9999:9999"
+  #   depends_on:
+  #     xxl-job-admin:
+  #       condition: service_started
+  #   networks:
+  #     - xxl-job-network
 
 networks:
   xxl-job-network:
